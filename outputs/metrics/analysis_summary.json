@@ -1,0 +1,178 @@
+{
+  "generated": "2026-09-27",
+  "scope": "California South Coast (037/059/065/071), 2021-2025, EPA AQS daily summaries",
+  "classification_holdout_2025": {
+    "split": {
+      "train_end": "2025-01-01",
+      "test_period": "2025-01-01..2025-12-31",
+      "seed": 42
+    },
+    "baseline/majority_baseline": {
+      "n_test": 365,
+      "n_positive": 43,
+      "accuracy": 0.8822,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "roc_auc": null,
+      "pr_auc": 0.1178,
+      "confusion": {
+        "tn": 322,
+        "fp": 0,
+        "fn": 43,
+        "tp": 0
+      },
+      "n_features": 6
+    },
+    "baseline/naive_bayes": {
+      "n_test": 365,
+      "n_positive": 43,
+      "accuracy": 0.8082,
+      "precision": 0.3761,
+      "recall": 0.9535,
+      "f1": 0.5395,
+      "roc_auc": 0.9367,
+      "pr_auc": 0.6394,
+      "confusion": {
+        "tn": 254,
+        "fp": 68,
+        "fn": 2,
+        "tp": 41
+      },
+      "n_features": 6
+    },
+    "baseline/random_forest": {
+      "n_test": 365,
+      "n_positive": 43,
+      "accuracy": 0.8822,
+      "precision": 0.5,
+      "recall": 0.6279,
+      "f1": 0.5567,
+      "roc_auc": 0.9294,
+      "pr_auc": 0.5849,
+      "confusion": {
+        "tn": 295,
+        "fp": 27,
+        "fn": 16,
+        "tp": 27
+      },
+      "n_features": 6
+    },
+    "engineered/majority_baseline": {
+      "n_test": 365,
+      "n_positive": 43,
+      "accuracy": 0.8822,
+      "precision": 0.0,
+      "recall": 0.0,
+      "f1": 0.0,
+      "roc_auc": null,
+      "pr_auc": 0.1178,
+      "confusion": {
+        "tn": 322,
+        "fp": 0,
+        "fn": 43,
+        "tp": 0
+      },
+      "n_features": 15
+    },
+    "engineered/naive_bayes": {
+      "n_test": 365,
+      "n_positive": 43,
+      "accuracy": 0.7699,
+      "precision": 0.336,
+      "recall": 0.9767,
+      "f1": 0.5,
+      "roc_auc": 0.9255,
+      "pr_auc": 0.5969,
+      "confusion": {
+        "tn": 239,
+        "fp": 83,
+        "fn": 1,
+        "tp": 42
+      },
+      "n_features": 15
+    },
+    "engineered/random_forest": {
+      "n_test": 365,
+      "n_positive": 43,
+      "accuracy": 0.8822,
+      "precision": 0.5,
+      "recall": 0.4651,
+      "f1": 0.4819,
+      "roc_auc": 0.9195,
+      "pr_auc": 0.5156,
+      "confusion": {
+        "tn": 302,
+        "fp": 20,
+        "fn": 23,
+        "tp": 20
+      },
+      "n_features": 15
+    }
+  },
+  "regression_holdout_2025": {
+    "task": "estimate same-day basin daily-max 8h O3 (ppb) from cross-pollutant network means + calendar (estimation, not forecasting)",
+    "target": "O3_max",
+    "split": {
+      "train_end": "2025-01-01",
+      "test_period": "2025-01-01..2025-12-31",
+      "seed": 42
+    },
+    "n_train": 1458,
+    "n_test": 365,
+    "features": [
+      "NO2",
+      "TEMP",
+      "WIND",
+      "month_sin",
+      "month_cos",
+      "dow_is_weekend",
+      "temp_x_no2",
+      "no2_per_wind",
+      "no2_x_weekend",
+      "no2_lag1",
+      "temp_lag1",
+      "no2_roll3_mean",
+      "no2_roll3_max",
+      "temp_roll3_mean",
+      "is_warm_season"
+    ],
+    "metrics": {
+      "dummy_mean": {
+        "mae": 10.135,
+        "mse": 145.288,
+        "rmse": 12.054,
+        "r2": -0.0016
+      },
+      "ols": {
+        "mae": 5.373,
+        "mse": 44.963,
+        "rmse": 6.705,
+        "r2": 0.69,
+        "rmse_train": 7.244
+      },
+      "ridge": {
+        "mae": 5.371,
+        "mse": 44.955,
+        "rmse": 6.705,
+        "r2": 0.6901,
+        "rmse_train": 7.244
+      },
+      "random_forest": {
+        "mae": 5.178,
+        "mse": 44.476,
+        "rmse": 6.669,
+        "r2": 0.6934,
+        "rmse_train": 3.015
+      }
+    },
+    "best_by_rmse": "random_forest",
+    "durbin_watson_train_residuals": 0.92,
+    "interpretation": "Best holdout RMSE: random_forest (6.669 ppb vs mean-baseline 12.054). OLS coefficients are per-SD effects from the training fold; Durbin-Watson = 0.92 confirms residual autocorrelation, so OLS p-values (independence assumption) should be read with caution. Associations describe this dataset; they do not establish causation."
+  },
+  "integrity": {
+    "chronological_splits_only": true,
+    "no_o3_feature_rule": true,
+    "real_data_only": "EPA AQS + Federal Register (public domain); no synthetic observations"
+  }
+}

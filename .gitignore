@@ -1,13 +1,24 @@
-# --- Data (re-downloadable; do not commit large files) ---
+# --- Data ---
+# Raw national AQS files are re-downloadable (scripts/download_data.py); never commit.
 data/raw/*
 !data/raw/.gitkeep
+
+# Processed runtime inputs ARE committed on purpose (they are small): the
+# Streamlit Cloud deployment reads them directly, so the app works without
+# re-running the 3.3 GB ETL. Everything else in processed/ stays ignored.
 data/processed/*
 !data/processed/.gitkeep
+!data/processed/daily_panel.csv
+!data/processed/data_quality_report.csv
+
+# External NLP corpus (1.8 MB, US Federal Register, public domain)
 data/external/*
 !data/external/.gitkeep
+!data/external/federal_register_epa_airquality.json
 
 # --- Database / models ---
-database/*.db
+# The SQLite database (26 MB) is committed: the dashboard reads the sites
+# table from it at runtime.
 models/*.pkl
 models/*.joblib
 models/*.txt
@@ -24,9 +35,15 @@ __pycache__/
 .ipynb_checkpoints/
 notebooks/*.ipynb
 
-# --- Project outputs (regenerable analysis artifacts) ---
-outputs/
-
+# --- Outputs: regenerable, but the small metrics artifacts are committed so
+#     results are visible on GitHub and the dashboard's model pages work ---
+outputs/*
+!outputs/metrics/
+outputs/metrics/*
+!outputs/metrics/model_comparison.json
+!outputs/metrics/regression_results.json
+!outputs/metrics/rf_feature_importance.csv
+!outputs/metrics/analysis_summary.json
 
 # --- Environment / secrets ---
 .env

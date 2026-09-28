@@ -36,15 +36,12 @@ def load_all():
     panel = pd.read_csv(PROJECT_ROOT / "data/processed/daily_panel.csv",
                         parse_dates=["date"])
     q = pd.read_csv(PROJECT_ROOT / "data/processed/data_quality_report.csv")
-    frames = {p: pd.read_csv(PROJECT_ROOT / f"data/processed/{p.lower()}_southcoast.csv",
-                             parse_dates=["date"])
-              for p in ["PM25", "O3", "NO2"]}
     import sqlite3
     con = sqlite3.connect(DB_PATH)
     sites = pd.read_sql("SELECT * FROM sites", con)
     con.close()
     modeling = build_modeling_frame(panel)
-    return panel, q, frames, sites, modeling
+    return panel, q, sites, modeling
 
 
 @st.cache_data(show_spinner="Running models...")
@@ -57,7 +54,7 @@ def run_analysis():
     from src.nlp_module import run_nlp
     from src.regression import run_regression
 
-    panel, _, _, _, modeling = load_all()
+    panel, _, _, modeling = load_all()
     stats = run_statistics(panel)
     tests = run_hypothesis_tests(panel)
     clus = run_clustering(modeling)
@@ -68,7 +65,7 @@ def run_analysis():
     return stats, tests, clus, rules, fc, nlp, reg
 
 
-panel, quality, site_frames, sites, modeling = load_all()
+panel, quality, sites, modeling = load_all()
 stats, tests, clus, rules, fc, nlp, reg = run_analysis()
 
 PARAM_META = {
