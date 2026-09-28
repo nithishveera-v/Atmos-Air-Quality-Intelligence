@@ -1,0 +1,39 @@
+# --- Data (re-downloadable; do not commit large files) ---
+data/raw/*
+!data/raw/.gitkeep
+data/processed/*
+!data/processed/.gitkeep
+data/external/*
+!data/external/.gitkeep
+
+# --- Database / models ---
+database/*.db
+models/*.pkl
+models/*.joblib
+models/*.txt
+
+# --- Python ---
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.egg-info/
+
+# --- Notebooks (executed, ~5 MB each; regenerate with scripts/make_notebooks.py
+#     + nbconvert, see README section 5) ---
+.ipynb_checkpoints/
+notebooks/*.ipynb
+
+# --- Project outputs (regenerable analysis artifacts) ---
+outputs/
+
+
+# --- Environment / secrets ---
+.env
+.streamlit/secrets.toml
+
+# --- OS / editor ---
+Thumbs.db
+.DS_Store
+.idea/
+.vscode/

@@ -1,0 +1,13 @@
+# Atmos - Urban Air Quality & Health-Risk Intelligence
+# Tested with Python 3.13 (Windows); pure-Python where practical.
+pandas>=2.2
+numpy>=1.26
+scipy>=1.11
+scikit-learn>=1.4
+statsmodels>=0.14
+plotly>=5.20
+matplotlib>=3.8
+streamlit>=1.36
+wordcloud>=1.9
+jupyterlab>=4.0
+pytest>=8.0
